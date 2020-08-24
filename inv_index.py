@@ -18,6 +18,7 @@ def index_one_file(termlist,filename,fileIndex,uniq_ident):
 	Split a text in to words. Builds word to id mapping 
 	Builds document id mapping to word id
 	"""
+	filename_cnv = int(filename)
 	for word in termlist:
 		if word not in WordMapDict.keys():
 			WordMapDict[word] = uniq_ident
@@ -26,10 +27,10 @@ def index_one_file(termlist,filename,fileIndex,uniq_ident):
 	for word in termlist:
 		word_id = WordMapDict[word]
 		if word_id not in fileIndex.keys():
-			fileIndex[word_id]=[filename]
+			fileIndex[word_id]=[filename_cnv]
 		else:
-			if filename not in fileIndex[word_id]:
-				fileIndex[word_id].append(filename)	
+			if filename_cnv not in fileIndex[word_id]:
+				fileIndex[word_id].append(filename_cnv)	
 	return (fileIndex,uniq_ident)
 
 def make_indices(termlists,fileIndex,uniq_ident):
@@ -79,7 +80,8 @@ def writeToFile(file_type,out_dict):
         		csvWriter = csv.DictWriter(indexFile, fieldnames= fieldNames)
         		csvWriter.writeheader()
         		for word, doc_ids in out_dict.items():
-            			csvWriter.writerow({'word_id': word, 'document_id_list': doc_ids})
+		                doc_ids.sort() ## Alternatively sort files by doc_id before file read/processing to eliminate this 
+		                csvWriter.writerow({'word_id': word, 'document_id_list': doc_ids})
 
 def main():
 	directory = 'G:\\Coding\\dataset'
