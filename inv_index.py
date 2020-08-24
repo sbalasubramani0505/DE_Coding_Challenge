@@ -47,7 +47,6 @@ def process_files(directory):
 	Cleansing of text + lower casing happens here  
         """
 	file_to_terms = {}
-	directory = '/Users/inba/Downloads/other/data-engineering-coding-challenge/dataset'
 	fileList = os.listdir(directory)
 	for file in fileList:
 		pattern = re.compile('[\W_]+')
