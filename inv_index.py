@@ -50,12 +50,11 @@ def process_files(directory):
 	directory = '/Users/inba/Downloads/other/data-engineering-coding-challenge/dataset'
 	fileList = os.listdir(directory)
 	for file in fileList:
-		if file != "inv_index.py" and file !="WordDictionary.txt" and "txt" not in file:
-			pattern = re.compile('[\W_]+')
-			file_to_terms[file] = open(file, 'r',encoding='latin1').read().lower()
-			file_to_terms[file] = pattern.sub(' ',file_to_terms[file])
-			re.sub(r'[\W_]+','', file_to_terms[file])
-			file_to_terms[file] = file_to_terms[file].split()
+		pattern = re.compile('[\W_]+')
+		file_to_terms[file] = open(file, 'r',encoding='latin1').read().lower()
+		file_to_terms[file] = pattern.sub(' ',file_to_terms[file])
+		re.sub(r'[\W_]+','', file_to_terms[file])
+		file_to_terms[file] = file_to_terms[file].split()
 	wordmapdict,inverted_index_out = make_indices(file_to_terms,fileIndex,uniq_ident)
 	return (wordmapdict,inverted_index_out) 
 
